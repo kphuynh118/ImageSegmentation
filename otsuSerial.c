@@ -237,7 +237,7 @@ int main(){
     std::chrono::duration<double> elapsed128 = end128 - start128;
     std::cout << "Serial code takes " << elapsed128.count() << " seconds to segment a 128x128 camera man image\n";
 
-    std::string outputPath128 = "/home/605/huynh/Project/segmentedOtsu128_Serial.jpg";
+    std::string outputPath128 = "/home/605/huynh/Project/cameraOtsu128_Serial.jpg";
     if(cv::imwrite(outputPath128,segmentedImage128)){
         std::cout << "Segmented 128x128 image is succesfully saved to " << outputPath128 << std::endl;
     } else{
@@ -260,7 +260,7 @@ int main(){
     std::chrono::duration<double> elapsed256 = end256 - start256;
     std::cout << "Serial code takes " << elapsed256.count() << " seconds to segment a 256x256 camera man image\n";
 
-    std::string outputPath256 = "/home/605/huynh/Project/segmentedOtsu256_Serial.jpg";
+    std::string outputPath256 = "/home/605/huynh/Project/cameraOtsu256_Serial.jpg";
     if(cv::imwrite(outputPath256,segmentedImage256)){
         std::cout << "Segmented 256x256 image is succesfully saved to " << outputPath256 << std::endl;
     } else{
@@ -283,7 +283,7 @@ int main(){
     std::chrono::duration<double> elapsed512 = end512 - start512;
     std::cout << "Serial code takes " << elapsed512.count() << " seconds to segment a 512x512 camera man image\n";
 
-    std::string outputPath512 = "/home/605/huynh/Project/segmentedOtsu512_Serial.jpg";
+    std::string outputPath512 = "/home/605/huynh/Project/cameraOtsu512_Serial.jpg";
     if(cv::imwrite(outputPath512,segmentedImage512)){
         std::cout << "Segmented 512x512 image is succesfully saved to " << outputPath512 << std::endl;
     } else{
