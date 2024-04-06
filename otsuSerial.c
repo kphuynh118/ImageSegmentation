@@ -64,7 +64,7 @@ cv::Mat Otsu128(const cv::Mat& inputImage){ //cv::Mat& outputImage
             optimal_threshold = t; 
         }
     }
-    
+    printf("Optimal threshold of a 128x128 camera man image is %d\n",optimal_threshold);
     cv::Mat segmentedOtsu128_Serial = cv::Mat::zeros(inputImage.size(),inputImage.type());
     for(int y=0; y<inputImage.rows; y++){
         for(int x=0; x<inputImage.cols; x++){
@@ -134,6 +134,7 @@ cv::Mat Otsu256(const cv::Mat& inputImage){ //cv::Mat& outputImage
             optimal_threshold = t; 
         }
     }
+    printf("Optimal threshold of a 256x256 camera man image is %d\n",optimal_threshold);
     cv::Mat segmentedOtsu256_Serial = cv::Mat::zeros(inputImage.size(),inputImage.type());
     for(int y=0; y<inputImage.rows; y++){
         for(int x=0; x<inputImage.cols; x++){
@@ -204,6 +205,7 @@ cv::Mat Otsu512(const cv::Mat& inputImage){ //cv::Mat& outputImage
             optimal_threshold = t; 
         }
     }
+    printf("Optimal threshold of a 512x512 camera man image is %d\n",optimal_threshold);
     cv::Mat segmentedOtsu512_Serial = cv::Mat::zeros(inputImage.size(),inputImage.type());
     for(int y=0; y<inputImage.rows; y++){
         for(int x=0; x<inputImage.cols; x++){
