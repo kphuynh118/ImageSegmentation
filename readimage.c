@@ -20,7 +20,11 @@ int main(){
     std::cout << "Image loaded successfully!" << std::endl;
     std::cout << "Image size: " << image.cols << " x " << image.rows << std::endl;
     std::cout << "Number of channels: " << image.channels() << std::endl; //1 for grayscale
-
+    
+    // Print out number of rows and columns
+    printf("number of rows %d\n",image.rows);
+    printf("number of columns %d\n",image.cols);
+    
     // Print a portion of the matrix (e.g., top-left 5x5 pixels)
     int rowsToPrint = std::min(5, image.rows);
     int colsToPrint = std::min(5, image.cols);
