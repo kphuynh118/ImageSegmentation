@@ -3,7 +3,7 @@
 #include <opencv2/opencv.hpp>
 #include <iostream>
 #include <vector>
-
+//to Compile: g++ -Wall -g -o ostuSerial ostuSerial.c  `pkg-config --cflags --libs opencv`
 #define MAX_INTENSITY 255
 #define graylevel 256  //total number of gray levels
 
