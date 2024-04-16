@@ -104,7 +104,7 @@ int OtsuVarianceMPI(const std::vector<double> &probability, int my_rank, int com
         local_bcVariance[t] = weight1 * (mean1-totalMean) * (mean1-totalMean) + weight2 * (mean2-totalMean) * (mean2-totalMean); 
     }
     
-    //get all local variances at root
+    //get all local variances from all processes
     std::vector<double> global_bcVariance(GRAYLEVEL, 0.0);
     MPI_Reduce(local_bcVariance.data(), global_bcVariance.data(), GRAYLEVEL, MPI_DOUBLE, MPI_SUM, 0, MPI_COMM_WORLD);
     
@@ -141,9 +141,10 @@ int main(int argc, char** argv){
             cv::Mat image;
             if(!openImage(image, imagePaths[i])){
                 std::cerr << "Failed to open the image at " << imagePaths[i] << std::endl;
-                MPI_Abort(MPI_COMM_WORLD, 1);
+                MPI_Abort(MPI_COMM_WORLD, 1); //ensure all processes not run avoiding further erroneous operations
                 return 1;
             }
+            //timer is reset for different image sizes, with auto start and auto end
             auto start = std::chrono::high_resolution_clock::now(); 
 
             std::vector<int> histogram = computeHistogram(image);
@@ -162,38 +163,6 @@ int main(int argc, char** argv){
     }
  
     MPI_Finalize();
-
-    /////////////////////////////256////////////////////////////////
-    // openImage(image256,"/home/605/huynh/project/camera256.jpg"); 
-    // auto start256 = std::chrono::high_resolution_clock::now(); 
-    // cv::Mat segmentedImageOMP256 = OtsuOpenMP(image256,thread_count);
-    // auto end256 = std::chrono::high_resolution_clock::now(); 
-
-    // std::chrono::duration<double> elapsed256 = end256 - start256;
-    // std::cout << "Parallel code using OpenMP takes " << elapsed256.count() << " seconds to segment a 256x256 camera man image\n";
-
-    // std::string outputPath256 = "/home/605/huynh/project/cameraOtsu256_OpenMP.jpg";
-    // if(cv::imwrite(outputPath256,segmentedImageOMP256)){
-    //     std::cout << "Segmented 256x256 image using OpenMP is succesfully saved to " << outputPath256 << std::endl;
-    // } else{
-    //     std::cerr << "Failed to save the segmented image." << std::endl;
-    // }
-    // printf("\n");
-    // /////////////////////////////512////////////////////////////////
-    // openImage(image512,"/home/605/huynh/project/camera512.jpg"); 
-    // auto start512 = std::chrono::high_resolution_clock::now(); 
-    // cv::Mat segmentedImageOMP512 = OtsuOpenMP(image512,thread_count);
-    // auto end512 = std::chrono::high_resolution_clock::now(); 
-
-    // std::chrono::duration<double> elapsed512 = end512 - start512;
-    // std::cout << "Parallel code using OpenMP takes " << elapsed512.count() << " seconds to segment a 512x512 camera man image\n";
-
-    // std::string outputPath512 = "/home/605/huynh/project/cameraOtsu512_OpenMP.jpg";
-    // if(cv::imwrite(outputPath512,segmentedImageOMP512)){
-    //     std::cout << "Segmented 512x512 image using OpenMP is succesfully saved to " << outputPath512 << std::endl;
-    // } else{
-    //     std::cerr << "Failed to save the segmented image." << std::endl;
-    // }
-
+    
     return 0;
 } 
