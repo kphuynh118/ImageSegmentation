@@ -1,0 +1,25 @@
+//batch script to run the code 10 times 
+
+#!/bin/sh
+#PBS -V
+#PBS -l nodes="node13"
+##PBS -l nodes=2:ppn=4:mpi
+#PBS -N otsuMPI
+#PBS -j oe
+#PBS -q batch
+
+cd $PBS_O_WORKDIR
+echo "batch.otsuMPI: running otsuMPI test..."
+NCORES=`wc -w < $PBS_NODEFILE`
+HOST=`hostname`
+LOCATION=`pwd`
+echo "batch.otsuMPI: running $NCORES processes from $HOST" 
+echo "batch.otsuMPI: cat-ing PBS nodes file:"
+echo "LOCATION== $LOCATION"
+cat $PBS_NODEFILE
+echo "application output follows..."
+
+export OMPI_MCA_btl=^openib
+for i in {1..10}; do
+    mpirun -mca orte_base_help_aggregate 0 -mca plm_rsh_agent rsh -np $NCORES --map-by node -hostfile $PBS_NODEFILE ./otsuMPI -n 2 //this can change accordingly 
+done 
