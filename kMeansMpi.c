@@ -34,11 +34,10 @@ int main(int argc, char *argv[]){
             openImage(image128, "/home/605/ulloa/project/camera128.jpg");
             //image128.copyTo(original128);
             rows = image128.rows;
-            // openImage(image256, "/home/605/ulloa/project/camera256.jpg");
+            // openImage(image256, "/home/605/./ulloa/project/camera256.jpg");
             // image256.copyTo(original256);
             // openImage(image512, "/home/605/ulloa/project/camera512.jpg");
             // image512.copyTo(original512); 
-        printf("\n"); 
     }
     MPI_Bcast(&rows, 1, MPI_INT, 0, MPI_COMM_WORLD);
     if(myRank < rows%threadCount){
@@ -106,7 +105,6 @@ int main(int argc, char *argv[]){
     if (myRank == 0){
             openImage(image256, "/home/605/ulloa/project/camera256.jpg");
             rows = image256.rows; 
-        printf("\n"); 
     }
     MPI_Bcast(&rows, 1, MPI_INT, 0, MPI_COMM_WORLD);
     if(myRank < rows%threadCount){
@@ -174,7 +172,6 @@ int main(int argc, char *argv[]){
         if (myRank == 0){
             openImage(image512, "/home/605/ulloa/project/camera512.jpg");
             rows = image512.rows; 
-        printf("\n"); 
     }
     MPI_Bcast(&rows, 1, MPI_INT, 0, MPI_COMM_WORLD);
     if(myRank < rows%threadCount){

@@ -62,23 +62,6 @@ int openImage(cv::Mat &image, std::string imagePath){
     //check and print the dimensions of the image
     std::cout << "Image loaded successfully!" << std::endl;
     std::cout << "Image size: " << image.cols << " x " << image.rows << std::endl;
-    // std::cout << "Number of channels: " << image.channels() << std::endl; //1 for grayscale
-    
-    // // Print out number of rows and columns
-    // printf("number of rows %d\n",image.rows);
-    // printf("number of columns %d\n",image.cols);
-    
-    // // Print a portion of the matrix (e.g., top-left 5x5 pixels)
-    // int rowsToPrint = std::min(5, image.rows);
-    // int colsToPrint = std::min(5, image.cols);
-
-    // std::cout << "Top-left corner of the image matrix (5x5 pixels):" << std::endl;
-    // for (int i = 0; i < rowsToPrint; ++i) {
-    //     for (int j = 0; j < colsToPrint; ++j) {
-    //         std::cout << static_cast<int>(image.at<uchar>(i, j)) << " ";
-    //     }
-    //     std::cout << std::endl;
-    // }
     return 0; 
 }
 
@@ -154,6 +137,6 @@ int kmeansOp(cv::Mat &image, cv::Mat &original){
     auto end = std::chrono::high_resolution_clock::now(); 
 
     std::chrono::duration<double> elapsed = end - start;
-    std::cout << "Parallel code takes " << elapsed.count() << " seconds to segment a "<< rows <<"x" << cols <<" camera man image\n";
+    std::cout << "OpenMp code takes " << elapsed.count() << " seconds to segment a "<< rows <<"x" << cols <<" camera man image\n";
     return 0; 
 }
