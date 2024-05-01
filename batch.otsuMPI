@@ -1,14 +1,15 @@
-//batch script to run the code 10 times 
+//batch script to run the code 5 times with different number of processors
 
 #!/bin/sh
 #PBS -V
-#PBS -l nodes="node13"
-##PBS -l nodes=2:ppn=4:mpi
+##PBS -l nodes="node13"
+#PBS -l nodes=2:ppn=4:mpi
 #PBS -N otsuMPI
 #PBS -j oe
 #PBS -q batch
 
 cd $PBS_O_WORKDIR
+echo "batch.otsuMPI: running otsuMPI test..."
 NCORES=`wc -w < $PBS_NODEFILE`
 HOST=`hostname`
 LOCATION=`pwd`
@@ -17,8 +18,12 @@ echo "batch.otsuMPI: cat-ing PBS nodes file:"
 echo "LOCATION== $LOCATION"
 cat $PBS_NODEFILE
 
+processors=(4 8 16 32)
 export OMPI_MCA_btl=^openib
-for i in {1..10}; do
+for i in {1..5}; do
     echo "Trial $i"
-    mpirun -mca orte_base_help_aggregate 0 -mca plm_rsh_agent rsh -np $NCORES --map-by node -hostfile $PBS_NODEFILE ./otsuMPI -n 2 //this can change accordingly 
-done 
+    for p in ${processors[@]}; do
+        mpirun --oversubscribe -mca orte_base_help_aggregate 0 -mca plm_rsh_agent rsh -n $p --map-by node -hostfile $PBS_NODEFILE ./otsuMPI1 $d
+    done
+    echo " "
+done
